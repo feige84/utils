@@ -1,0 +1,503 @@
+package utils
+
+import (
+	"bytes"
+	"crypto/tls"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io/ioutil"
+	"net"
+	"net/http"
+	"net/url"
+	"strings"
+	"time"
+)
+
+type HttpSend struct {
+	RequestUrl       string
+	RequestNum       int64 //请求次数
+	Method           string
+	Header           map[string]string
+	PostData         map[string]string
+	JsonData         interface{}
+	Format           string //json，form-data
+	ConnectTimeout   time.Duration
+	ReadWriteTimeout time.Duration
+}
+
+//http请求处理
+func HttpHandle(r *HttpSend) (string, error) {
+	var (
+		req      *http.Request
+		resp     *http.Response
+		client   http.Client
+		sendData interface{}
+		err      error
+	)
+
+	//判断是否是有效URL
+	urlInfo, err := url.Parse(r.RequestUrl)
+	if err != nil {
+		return "url parse err: ", err
+	}
+
+	//设置默认超时时间
+	if r.ConnectTimeout == 0 {
+		r.ConnectTimeout = 3
+	}
+	if r.ReadWriteTimeout == 0 {
+		r.ReadWriteTimeout = 3
+	}
+
+	//设置超时时间
+	client.Timeout = r.ConnectTimeout * time.Second
+
+	//忽略https的证书
+	client.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		//Dial:            TimeoutDialer(r.ConnectTimeout*time.Second, 5*time.Second), //设置超时，连接超时，读写超时。官方已不推荐用此方法。
+	}
+
+	method := "POST"
+	//判断是否是POST
+	if len(r.PostData) > 0 {
+		//如果有POST数据，使用POST方式提交。
+		if r.Format == "json" {
+			if _, exist := r.Header["Content-Type"]; exist {
+				r.Header["Content-Type"] = "application/json;charset=utf-8"
+			} else {
+				r.Header = map[string]string{
+					"Content-Type": "application/json;charset=utf-8",
+				}
+			}
+			//如果是JSON格式
+			sendBody, jsonErr := json.Marshal(r.PostData)
+			if jsonErr != nil {
+				return "json encode err", jsonErr
+			}
+			req, err = http.NewRequest(method, r.RequestUrl, bytes.NewBuffer(sendBody))
+			//if err != nil {
+			//	panic(err.Error())
+			//}
+		} else {
+			if _, exist := r.Header["Content-Type"]; exist {
+				r.Header["Content-Type"] = "application/x-www-form-urlencoded"
+			} else {
+				r.Header = map[string]string{
+					"Content-Type": "application/x-www-form-urlencoded",
+				}
+			}
+			//表单方式
+			sendBody := http.Request{}
+			sendErr := sendBody.ParseForm()
+			if sendErr != nil {
+				return "parse form err", sendErr
+			}
+			for k, v := range r.PostData {
+				sendBody.Form.Add(k, v)
+			}
+			sendData = strings.TrimSpace(sendBody.Form.Encode())
+			req, err = http.NewRequest(method, r.RequestUrl, strings.NewReader(sendData.(string)))
+			//if err != nil {
+			//	panic(err.Error())
+			//}
+		}
+	} else if r.JsonData != nil {
+		//提交json格式数据。公众号用。
+		if _, exist := r.Header["Content-Type"]; exist {
+			r.Header["Content-Type"] = "application/json;charset=utf-8"
+		} else {
+			r.Header = map[string]string{
+				"Content-Type": "application/json;charset=utf-8",
+			}
+		}
+		sendBody, jsonErr := json.Marshal(r.JsonData)
+		if jsonErr != nil {
+			return "json encode err: ", jsonErr
+			//panic(jsonErr.Error())
+		}
+		req, err = http.NewRequest(method, r.RequestUrl, bytes.NewBuffer(sendBody))
+		//if err != nil {
+		//	panic(err.Error())
+		//}
+	} else {
+		method = "GET"
+		req, err = http.NewRequest(method, r.RequestUrl, nil)
+		//if err != nil {
+		//	panic(err.Error())
+		//}
+	}
+
+	if err != nil {
+		return "http request err: " + r.RequestUrl, err
+	}
+
+	//设置header头
+	if len(r.Header) > 0 {
+		for k, v := range r.Header {
+			req.Header.Add(k, v)
+		}
+	}
+
+	//设置主机名
+	req.Host = urlInfo.Host
+
+	//2019-06-02
+	if req.Header.Get("Referer") == "" && req.Header.Get("referer") == "" {
+		req.Header.Add("Referer", urlInfo.Scheme+"://"+urlInfo.Host+urlInfo.Path)
+	}
+
+	//开始请求
+	resp, err = client.Do(req)
+	r.RequestNum++
+	reqErr := url.Error{Err: err}
+	if reqErr.Timeout() {
+		if r.RequestNum < 2 {
+			//fmt.Println("尝试请求第", r.RequestNum, "次")
+			tryResp, tryErr := HttpHandle(r)
+			return tryResp, tryErr
+		}
+	}
+
+	if err != nil {
+		//panic(err.Error())
+		return "http response err: " + err.Error(), err
+	}
+	if resp != nil {
+		defer resp.Body.Close()
+	}
+	if resp.StatusCode != http.StatusOK {
+		//fmt.Println(resp.StatusCode)
+		return "http response code: " + string(resp.StatusCode), err
+	}
+	respData, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "respData ERR: " + string(respData), err
+	} else {
+		r.RequestNum = 0
+		return string(respData), nil
+	}
+}
+
+func HttpHandleLocation(r *HttpSend) (string, error) {
+	var (
+		req      *http.Request
+		resp     *http.Response
+		client   http.Client
+		sendData interface{}
+		err      error
+	)
+
+	//判断是否是有效URL
+	urlInfo, err := url.Parse(r.RequestUrl)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	//设置默认超时时间
+	if r.ConnectTimeout == 0 {
+		r.ConnectTimeout = 3
+	}
+	if r.ReadWriteTimeout == 0 {
+		r.ReadWriteTimeout = 3
+	}
+
+	//设置超时时间
+	client.Timeout = r.ConnectTimeout * time.Second
+
+	//忽略https的证书
+	client.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		//Dial:            TimeoutDialer(r.ConnectTimeout*time.Second, 5*time.Second), //设置超时，连接超时，读写超时。官方已不推荐用此方法。
+	}
+
+	method := "POST"
+	//判断是否是POST
+	if len(r.PostData) > 0 {
+		//如果有POST数据，使用POST方式提交。
+		if r.Format == "json" {
+			if _, exist := r.Header["Content-Type"]; exist {
+				r.Header["Content-Type"] = "application/json;charset=utf-8"
+			} else {
+				r.Header = map[string]string{
+					"Content-Type": "application/json;charset=utf-8",
+				}
+			}
+			//r.Header = map[string]string{
+			//	"Content-Type": "application/json;charset=utf-8",
+			//}
+			//如果是JSON格式
+			sendBody, jsonErr := json.Marshal(r.PostData)
+			if jsonErr != nil {
+				panic(jsonErr.Error())
+			}
+			req, err = http.NewRequest(method, r.RequestUrl, bytes.NewBuffer(sendBody))
+			if err != nil {
+				panic(err.Error())
+			}
+		} else {
+			if _, exist := r.Header["Content-Type"]; exist {
+				r.Header["Content-Type"] = "application/x-www-form-urlencoded"
+			} else {
+				r.Header = map[string]string{
+					"Content-Type": "application/x-www-form-urlencoded",
+				}
+			}
+			//表单方式
+			sendBody := http.Request{}
+			err = sendBody.ParseForm()
+			if err != nil {
+				panic(err.Error())
+			}
+			for k, v := range r.PostData {
+				sendBody.Form.Add(k, v)
+			}
+			sendData = strings.TrimSpace(sendBody.Form.Encode())
+			req, err = http.NewRequest(method, r.RequestUrl, strings.NewReader(sendData.(string)))
+			if err != nil {
+				panic(err.Error())
+			}
+		}
+	} else if r.JsonData != nil {
+		//提交json格式数据。公众号用。
+		if _, exist := r.Header["Content-Type"]; exist {
+			r.Header["Content-Type"] = "application/json;charset=utf-8"
+		} else {
+			r.Header = map[string]string{
+				"Content-Type": "application/json;charset=utf-8",
+			}
+		}
+		var sendBody []byte
+		switch result := r.JsonData.(type) {
+		case string:
+			sendBody = []byte(result)
+		default:
+			sendBody, err = json.Marshal(r.JsonData)
+			if err != nil {
+				panic(err.Error())
+			}
+		}
+		req, err = http.NewRequest(method, r.RequestUrl, bytes.NewBuffer(sendBody))
+		if err != nil {
+			panic(err.Error())
+		}
+	} else {
+		method = "GET"
+		req, err = http.NewRequest(method, r.RequestUrl, nil)
+		if err != nil {
+			panic(err.Error())
+		}
+	}
+
+	if err != nil {
+		return "http request err: " + r.RequestUrl, err
+	}
+
+	//设置header头
+	if len(r.Header) > 0 {
+		for k, v := range r.Header {
+			req.Header.Add(k, v)
+		}
+	}
+
+	//设置主机名
+	req.Host = urlInfo.Host
+
+	//2019-06-02
+	if req.Header.Get("Referer") == "" && req.Header.Get("referer") == "" {
+		req.Header.Add("Referer", urlInfo.Scheme+"://"+urlInfo.Host+urlInfo.Path)
+	}
+
+	//开始请求
+	resp, err = client.Do(req)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	if err != nil {
+		return "", err
+	}
+	urlLocation := resp.Request.URL.String()
+	return urlLocation, err
+
+	//
+	//r.RequestNum++
+	//reqErr := url.Error{Err: err}
+	//if reqErr.Timeout() {
+	//	if r.RequestNum < 2 {
+	//		//fmtPrintln("尝试请求第", r.RequestNum, "次")
+	//		tryResp, tryErr := HttpHandle(r)
+	//		return tryResp, tryErr
+	//	}
+	//}
+	//
+	//if err != nil {
+	//	panic(err.Error())
+	//	return "http response err: " + err.Error(), err
+	//}
+	//if resp != nil {
+	//	defer resp.Body.Close()
+	//}
+	//if resp.StatusCode != http.StatusOK {
+	//	//fmtPrintln(resp.StatusCode)
+	//	return "http response code: " + string(resp.StatusCode), err
+	//}
+	//respData, err := ioutil.ReadAll(resp.Body)
+	//if err != nil {
+	//	return "respData ERR: " + string(respData), err
+	//} else {
+	//	return string(respData), nil
+	//}
+}
+
+//获取响应的cookie
+func HttpGetCookie(r *HttpSend) (map[string]string, error) {
+	//判断是否是有效URL
+	urlInfo, err := url.Parse(r.RequestUrl)
+	if err != nil {
+		return nil, err
+	}
+	req, err := http.NewRequest("GET", r.RequestUrl, nil)
+	if err != nil {
+		return nil, err
+	}
+	if r.ConnectTimeout == 0 {
+		r.ConnectTimeout = 3
+	}
+	//设置主机名
+	req.Host = urlInfo.Host
+
+	//2019-06-02
+	if req.Header.Get("Referer") == "" && req.Header.Get("referer") == "" {
+		req.Header.Add("Referer", urlInfo.Scheme+"://"+urlInfo.Host+urlInfo.Path)
+	}
+
+	req.Header.Add("User-Agent", "Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16B91")
+	req.Header.Add("Referer", urlInfo.Scheme+"://"+urlInfo.Host)
+	httpClient := &http.Client{}
+	httpClient.Timeout = r.ConnectTimeout * time.Second
+	response, err := httpClient.Do(req)
+	r.RequestNum++
+	reqErr := url.Error{Err: err}
+	if reqErr.Timeout() {
+		if r.RequestNum < 2 {
+			//fmt.Println("尝试请求第", r.RequestNum, "次")
+			tryResp, tryErr := HttpGetCookie(r)
+			return tryResp, tryErr
+		}
+	}
+	if err != nil {
+		return nil, err
+	}
+	if response != nil {
+		defer response.Body.Close()
+	}
+	cookies := make(map[string]string)
+	if response.StatusCode != http.StatusOK {
+		return nil, err
+	}
+	cookie := response.Cookies()
+	if len(cookie) > 0 {
+		for _, c := range cookie {
+			cookies[c.Name] = c.Value
+		}
+	}
+	return cookies, nil
+}
+
+// TimeoutDialer returns functions of connection dialer with timeout settings for http.Transport Dial field.
+func TimeoutDialer(cTimeout time.Duration, rwTimeout time.Duration) func(net, addr string) (c net.Conn, err error) {
+	return func(netw, addr string) (net.Conn, error) {
+		conn, err := net.DialTimeout(netw, addr, cTimeout)
+		if err != nil {
+			return nil, err
+		}
+		err = conn.SetDeadline(GetNow().Add(rwTimeout))
+		return conn, err
+	}
+}
+
+func SimpleGet(requestUrl string) (string, error) {
+	//判断是否是有效URL
+	_, err := url.Parse(requestUrl)
+	if err != nil {
+		return "", err
+		//panic(err.Error())
+	}
+	//开始请求
+	resp, err := http.Get(requestUrl)
+	if err != nil {
+		return "", err
+		//panic(err.Error())
+	}
+	//用完关闭
+	defer resp.Body.Close()
+	//不是返回OK。就跳过。
+	if resp.StatusCode != http.StatusOK {
+		//fmt.Println(resp.StatusCode)
+		return "", errors.New("resp code is " + fmt.Sprint(resp.StatusCode))
+		//return "http response code: " + string(resp.StatusCode)
+	}
+
+	respData, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+		//panic(err.Error())
+	}
+
+	return string(respData), nil
+}
+
+func SimplePost(requestUrl string, params map[string]string) (string, error) {
+	//contentType := "application/json"
+	//参数，多个用&隔开
+
+	//表单方式
+	sendBody := &http.Request{}
+	//sendBody.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	sendErr := sendBody.ParseForm()
+	if sendErr != nil {
+		return "parse form err", sendErr
+	}
+	for k, v := range params {
+		sendBody.Form.Add(k, v)
+	}
+	data := strings.NewReader(strings.TrimSpace(sendBody.Form.Encode()))
+
+	tr := &http.Transport{ //解决x509: certificate signed by unknown authority
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	client := &http.Client{
+		Timeout:   3 * time.Second,
+		Transport: tr, //解决x509: certificate signed by unknown authority
+	}
+	req, err := http.NewRequest("POST", requestUrl, data)
+	if err != nil {
+		return "http request err: " + requestUrl, err
+	}
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	resp, err := client.Do(req)
+
+	reqErr := url.Error{Err: err}
+	if reqErr.Timeout() {
+		//fmt.Println("尝试请求第", r.RequestNum, "次")
+		tryResp, tryErr := SimplePost(requestUrl, params)
+		return tryResp, tryErr
+	}
+
+	//resp, err := http.Post(requestUrl, "application/x-www-form-urlencoded", data)
+	if err != nil {
+		return "http response err: " + err.Error(), err
+	}
+	if resp != nil {
+		defer resp.Body.Close()
+	}
+	respData, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+
+	return string(respData), nil
+}
