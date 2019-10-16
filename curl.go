@@ -25,8 +25,8 @@ type HttpSend struct {
 	XMLHttpRequest   bool
 	ProxyIp          string
 	ProxyPort        int64
-	ConnectTimeout   time.Duration
-	ReadWriteTimeout time.Duration
+	ConnectTimeout   int64
+	ReadWriteTimeout int64
 }
 
 func initRequest(r *HttpSend) (req *http.Request, client *http.Client, err error) {
@@ -123,7 +123,7 @@ func initRequest(r *HttpSend) (req *http.Request, client *http.Client, err error
 		}
 	}
 	client = &http.Client{
-		Timeout:   r.ConnectTimeout * time.Second, //设置超时时间
+		Timeout:   time.Duration(r.ConnectTimeout) * time.Second, //设置超时时间
 		Transport: transport,
 	}
 
