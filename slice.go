@@ -2,6 +2,7 @@ package utils
 
 import (
 	"bytes"
+	"fmt"
 	"math/rand"
 	"sort"
 	"strings"
@@ -274,6 +275,14 @@ func ArrayReverseFloat(s []float64) []float64 {
 func ArrayReverseInt64(s []int64) []int64 {
 	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
 		s[i], s[j] = s[j], s[i]
+	}
+	return s
+}
+
+func ArrayInt64ToString(i []int64) []string {
+	s := []string{}
+	for _, v := range i {
+		s = append(s, fmt.Sprint(v))
 	}
 	return s
 }
