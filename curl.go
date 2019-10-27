@@ -75,10 +75,13 @@ func initRequest(r *HttpSend) (req *http.Request, client *http.Client, err error
 			//表单方式
 			r.Header["Content-Type"] = "application/x-www-form-urlencoded"
 			sendBody := http.Request{}
-			for k, v := range value {
-				sendBody.Form.Add(k, v)
+			err = sendBody.ParseForm()
+			if err == nil {
+				for k, v := range value {
+					sendBody.Form.Add(k, v)
+				}
+				req, err = http.NewRequest("POST", r.RequestUrl, strings.NewReader(sendBody.Form.Encode()))
 			}
-			req, err = http.NewRequest("POST", r.RequestUrl, strings.NewReader(sendBody.Form.Encode()))
 		} else {
 			//json
 			r.Header["Content-Type"] = "application/json;charset=utf-8"
