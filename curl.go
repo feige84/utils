@@ -24,8 +24,7 @@ type HttpSend struct {
 	SendData         interface{}
 	Format           string //json，form-data
 	XMLHttpRequest   bool
-	ProxyIp          string
-	ProxyPort        int64
+	ProxyStr         string
 	ConnectTimeout   int64
 	ReadWriteTimeout int64
 }
@@ -115,14 +114,10 @@ func initRequest(r *HttpSend) (req *http.Request, client *http.Client, err error
 		//Dial: TimeoutDialer(r.ConnectTimeout*time.Second, 5*time.Second), //设置超时，连接超时，读写超时。官方已不推荐用此方法。
 	}
 	//设置代理
-	if r.ProxyIp != "" && r.ProxyPort > 0 {
-		proxyStr := fmt.Sprintf("http://%s:%d", r.ProxyIp, r.ProxyPort)
-		urlProxy, err := url.Parse(proxyStr)
-		if err != nil {
-			if r.Debug {
-				fmt.Println("proxy url err:", err.Error())
-			}
-		} else {
+	// http://username:password@http-dyn.abuyun.com:9020"
+	if r.ProxyStr != "" {
+		urlProxy, err := url.Parse(r.ProxyStr)
+		if err == nil {
 			transport.Proxy = http.ProxyURL(urlProxy)
 		}
 	}
