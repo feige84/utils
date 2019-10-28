@@ -2,6 +2,7 @@ package utils
 
 import (
 	"bytes"
+	"compress/gzip"
 	"crypto/tls"
 	"encoding/json"
 	"errors"
@@ -166,6 +167,12 @@ func HttpHandle(r *HttpSend) (string, error) {
 	}
 	if resp.StatusCode != http.StatusOK {
 		return "", fmt.Errorf("http response code: %d, %v", resp.StatusCode, err)
+	}
+	if resp.Header.Get("Content-Encoding") == "gzip" {
+		resp.Body, err = gzip.NewReader(resp.Body)
+		if err != nil {
+			return "", fmt.Errorf("http response unzip is failed: %s", err)
+		}
 	}
 	respData, err := ioutil.ReadAll(resp.Body)
 	if r.Debug {
