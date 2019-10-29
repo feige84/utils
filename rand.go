@@ -17,6 +17,18 @@ func GetRandomString(length int) string {
 	return string(result)
 }
 
+//生成十六进制随机
+func GetRandomHex(length int) string {
+	str := "0123456789abcdef"
+	bytes := []byte(str)
+	result := []byte{}
+	r := rand.New(rand.NewSource(GetNow().UnixNano()))
+	for i := 0; i < length; i++ {
+		result = append(result, bytes[r.Intn(len(bytes))])
+	}
+	return string(result)
+}
+
 //生成随机数字,用于验证码
 func GetRandomNum(length int) string {
 	str := "0123456789"
