@@ -22,7 +22,7 @@ type HttpSend struct {
 	Method           string
 	Header           map[string]string
 	SendData         interface{}
-	Format           string //json，form-data
+	Format           string //json，form-data, stream
 	XMLHttpRequest   bool
 	ProxyStr         string
 	ConnectTimeout   int64
@@ -72,7 +72,7 @@ func initRequest(r *HttpSend) (req *http.Request, client *http.Client, err error
 		req, err = http.NewRequest("GET", r.RequestUrl, nil)
 	} else {
 		if value, ok := r.SendData.(map[string]string); ok && len(value) > 0 && strings.ToUpper(r.Format) != "JSON" {
-			//表单方式
+			//form-data
 			r.Header["Content-Type"] = "application/x-www-form-urlencoded"
 			sendBody := http.Request{}
 			err = sendBody.ParseForm()
@@ -82,7 +82,11 @@ func initRequest(r *HttpSend) (req *http.Request, client *http.Client, err error
 				}
 				req, err = http.NewRequest("POST", r.RequestUrl, strings.NewReader(sendBody.Form.Encode()))
 			}
-		} else {
+		} else if value, ok := r.SendData.([]byte); ok && len(value) > 0 && strings.ToUpper(r.Format) == "STREAM" {
+			//stream
+			r.Header["Content-Type"] = "application/octet-stream;tt-data=a"
+			req, err = http.NewRequest("POST", r.RequestUrl, bytes.NewBuffer(value))
+		} else  {
 			//json
 			r.Header["Content-Type"] = "application/json;charset=utf-8"
 			sendBody, jsonErr := json.Marshal(r.SendData)
