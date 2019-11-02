@@ -39,12 +39,12 @@ func initRequest(r *HttpSend) (req *http.Request, client *http.Client, err error
 	}
 
 	//设置默认超时时间
-	if r.ConnectTimeout == 0 {
-		r.ConnectTimeout = 3
-	}
-	if r.ReadWriteTimeout == 0 {
-		r.ReadWriteTimeout = 3
-	}
+	//if r.ConnectTimeout == 0 {
+	//	r.ConnectTimeout = 3
+	//}
+	//if r.ReadWriteTimeout == 0 {
+	//	r.ReadWriteTimeout = 3
+	//}
 
 	//请求类型
 	if r.SendData == nil {
@@ -86,7 +86,7 @@ func initRequest(r *HttpSend) (req *http.Request, client *http.Client, err error
 			//stream
 			r.Header["Content-Type"] = "application/octet-stream;tt-data=a"
 			req, err = http.NewRequest("POST", r.RequestUrl, bytes.NewBuffer(value))
-		} else  {
+		} else {
 			//json
 			r.Header["Content-Type"] = "application/json;charset=utf-8"
 			sendBody, jsonErr := json.Marshal(r.SendData)
@@ -126,8 +126,10 @@ func initRequest(r *HttpSend) (req *http.Request, client *http.Client, err error
 		}
 	}
 	client = &http.Client{
-		Timeout:   time.Duration(r.ConnectTimeout) * time.Second, //设置超时时间
 		Transport: transport,
+	}
+	if r.ConnectTimeout > 0 {
+		client.Timeout = time.Duration(r.ConnectTimeout) * time.Second
 	}
 
 	if r.Debug {
