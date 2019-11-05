@@ -123,7 +123,7 @@ func Wlog(dirName, prefix, content string) {
 	logFile, err := os.OpenFile(fileName, os.O_CREATE|os.O_RDWR|os.O_APPEND, os.ModePerm)
 	defer logFile.Close()
 	if err != nil {
-		panic("open file error")
+		panic("open file error:" + err.Error())
 	}
 
 	_, file, line, ok := runtime.Caller(1)
