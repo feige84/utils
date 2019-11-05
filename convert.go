@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/base64"
 	"fmt"
+	"math"
 	"regexp"
 	"strconv"
 	"strings"
@@ -242,4 +243,34 @@ func Round(number float64) float64 {
 		panic(err.Error())
 	}
 	return floatNum
+}
+
+func Max(nums ...float64) float64 {
+	numLen := len(nums)
+	if numLen < 2 {
+		if numLen == 1 {
+			return nums[0]
+		}
+		return 0
+	}
+	max := nums[0]
+	for i := 1; i < numLen; i++ {
+		max = math.Max(max, nums[i])
+	}
+	return max
+}
+
+func Min(nums ...float64) float64 {
+	numLen := len(nums)
+	if numLen < 2 {
+		if numLen == 1 {
+			return nums[0]
+		}
+		return 0
+	}
+	min := nums[0]
+	for i := 1; i < numLen; i++ {
+		min = math.Min(min, nums[i])
+	}
+	return min
 }
