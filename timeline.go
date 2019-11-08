@@ -24,6 +24,21 @@ func GetYmd(timestamp int64) (y, m, d int) {
 	return
 }
 
+//返回指定时间的年月日时
+func GetYmdh(timestamp int64) (y, m, d, h int) {
+	var mm time.Month
+	var t time.Time
+	if timestamp > 0 {
+		t = time.Unix(timestamp, 0)
+	} else {
+		t = GetNow()
+	}
+	y, mm, d = t.Date()
+	m = int(mm)
+	h = t.Hour()
+	return
+}
+
 //返回指定时间的时间戳
 func GetToday() (start, end int64) {
 	year, month, day := GetNow().Date()
