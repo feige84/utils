@@ -16,17 +16,18 @@ import (
 )
 
 type HttpSend struct {
-	Debug            bool //是否调试模式
-	RequestUrl       string
-	RequestNum       int64 //请求次数
-	Method           string
-	Header           map[string]string
-	SendData         interface{}
-	Format           string //json，form-data, stream
-	XMLHttpRequest   bool
-	ProxyStr         string
-	ConnectTimeout   int64
-	ReadWriteTimeout int64
+	Debug             bool //是否调试模式
+	RequestUrl        string
+	RequestNum        int64 //请求次数
+	Method            string
+	Header            map[string]string
+	SendData          interface{}
+	Format            string //json，form-data, stream
+	XMLHttpRequest    bool
+	ProxyStr          string
+	ConnectTimeout    int64
+	ReadWriteTimeout  int64
+	DisableKeepAlives bool
 }
 
 func initRequest(r *HttpSend) (req *http.Request, client *http.Client, err error) {
@@ -124,6 +125,10 @@ func initRequest(r *HttpSend) (req *http.Request, client *http.Client, err error
 		if err == nil {
 			transport.Proxy = http.ProxyURL(urlProxy)
 		}
+	}
+	//是否禁用保持活动链接
+	if r.DisableKeepAlives {
+		transport.DisableKeepAlives = true
 	}
 	client = &http.Client{
 		Transport: transport,
