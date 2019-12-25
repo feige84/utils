@@ -46,7 +46,7 @@ func GetToday() (start, end int64) {
 	year, month, day := GetNow().Date()
 	todayStart := time.Date(year, month, day, 0, 0, 0, 0, TimeLocal)
 	start = todayStart.Unix()
-	end = todayStart.Unix() + 24*3600 - 1
+	end = start + 24*3600 - 1
 	return
 }
 
@@ -55,7 +55,16 @@ func GetYesterday() (start, end int64) {
 	year, month, day := GetNow().Date()
 	yesterdayStart := time.Date(year, month, day-1, 0, 0, 0, 0, TimeLocal)
 	start = yesterdayStart.Unix()
-	end = yesterdayStart.Unix() + 24*3600 - 1
+	end = start + 24*3600 - 1
+	return
+}
+
+//返回明天的时间戳
+func GetTomorrow() (start, end int64) {
+	year, month, day := GetNow().Date()
+	tomorrowStart := time.Date(year, month, day+1, 0, 0, 0, 0, TimeLocal)
+	start = tomorrowStart.Unix()
+	end = start + 24*3600 - 1
 	return
 }
 
@@ -68,7 +77,7 @@ func GetWeek() (start, end int64) {
 		date = date.AddDate(0, 0, -1)
 	}
 	start = date.Unix()
-	end = date.Unix() + 7*24*3600 - 1
+	end = start + 7*24*3600 - 1
 	return
 }
 
