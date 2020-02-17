@@ -186,3 +186,12 @@ func GetAllFile(pathName string, s []string) ([]string, error) {
 	}
 	return s, nil
 }
+
+func GetFileSizeDesc(size float64) string {
+	unit := []string{"Bytes", "KB", "MB", "GB", "TB", "PB"}
+	i := 0
+	for i = 0; size >= 1024 && i < 5; i++ {
+		size /= 1024
+	}
+	return fmt.Sprintf("%.2f %s", size, unit[i])
+}
