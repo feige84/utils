@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d35f6ec5-e47b-48d5-bb88-75ed58297dbf" name="Default Changelist" comment="">
+    <list default="true" id="d35f6ec5-e47b-48d5-bb88-75ed58297dbf" name="Default Changelist" comment="增加文件大小描述">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file.go" beforeDir="false" afterPath="$PROJECT_DIR$/file.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timeline.go" beforeDir="false" afterPath="$PROJECT_DIR$/timeline.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,13 +108,15 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="1.0" />
     <MESSAGE value="增加int64获取绝对值" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加int64获取绝对值" />
+    <MESSAGE value="增加文件大小描述" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加文件大小描述" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="4736" y="293" key="CommitChangelistDialog2" timestamp="1577771329883">
-      <screen x="3840" y="0" width="2560" height="1400" />
+    <state x="896" y="293" key="CommitChangelistDialog2" timestamp="1581916600208">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="4736" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1577771329883" />
+    <state x="896" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1581916600208" />
+    <state x="4736" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1581912847284" />
     <state x="3933" y="93" width="2375" height="1215" key="DiffContextDialog" timestamp="1577258028781">
       <screen x="3840" y="0" width="2560" height="1400" />
     </state>
@@ -123,10 +125,10 @@
       <screen x="3840" y="0" width="2560" height="1400" />
     </state>
     <state x="4901" y="456" key="FileChooserDialogImpl/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1577258186234" />
-    <state x="4713" y="434" key="Vcs.Push.Dialog.v2" timestamp="1577771342869">
+    <state x="4713" y="434" key="Vcs.Push.Dialog.v2" timestamp="1581912849334">
       <screen x="3840" y="0" width="2560" height="1400" />
     </state>
-    <state x="4713" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1577771342869" />
+    <state x="4713" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1581912849334" />
     <state x="4805" y="438" width="811" height="711" key="find.popup" timestamp="1576739325414">
       <screen x="3840" y="0" width="2560" height="1400" />
     </state>

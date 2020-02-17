@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"math"
 	"strings"
 	"time"
 )
@@ -327,4 +328,40 @@ func StrToTime(dateText, timeLayout string) (timestamp int64) {
 	}
 	timestamp = theTime.Unix() //转化为时间戳 类型是int64
 	return
+}
+
+//传毫秒
+func GetDurationDesc(duration int64) string {
+	var day, hour, minute int
+	second := int(math.Round(float64(duration) / 1000))
+	if second > 60 {
+		//获取分钟，除以60取整数，得到整数分钟
+		minute = int(second / 60)
+		//获取秒数，秒数取佘，得到整数秒数
+		second = int(second % 60)
+		//如果分钟大于60，将分钟转换成小时
+		if minute > 60 {
+			//获取小时，获取分钟除以60，得到整数小时
+			hour = int(minute / 60)
+			//获取小时后取佘的分，获取分钟除以60取佘的分
+			minute = int(minute % 60)
+			if hour > 24 {
+				//获取天，获取分钟除以24，得到整数天
+				day = int(hour / 24)
+				//获取天后取佘的时，获取小时除以24取佘的时
+				hour = int(hour % 24)
+			}
+		}
+	}
+	var result = fmt.Sprintf("%d秒", second)
+	if minute > 0 {
+		result = fmt.Sprintf("%d分", minute) + result
+	}
+	if hour > 0 {
+		result = fmt.Sprintf("%d小时", hour) + result
+	}
+	if day > 0 {
+		result = fmt.Sprintf("%d天", day) + result
+	}
+	return result
 }
