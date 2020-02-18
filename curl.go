@@ -31,7 +31,6 @@ type HttpSend struct {
 }
 
 func initRequest(r *HttpSend) (req *http.Request, client *http.Client, err error) {
-	//r.Debug = true
 	//判断是否是有效URL
 	urlInfo, err := url.Parse(r.RequestUrl)
 	if err != nil {
@@ -39,19 +38,11 @@ func initRequest(r *HttpSend) (req *http.Request, client *http.Client, err error
 		return
 	}
 
-	//设置默认超时时间
-	//if r.ConnectTimeout == 0 {
-	//	r.ConnectTimeout = 3
-	//}
-	//if r.ReadWriteTimeout == 0 {
-	//	r.ReadWriteTimeout = 3
-	//}
-
 	//请求类型
 	if r.SendData == nil {
-		r.Method = "GET"
+		r.Method = http.MethodGet
 	} else {
-		r.Method = "POST"
+		r.Method = http.MethodPost
 	}
 
 	//初始化header
@@ -69,8 +60,8 @@ func initRequest(r *HttpSend) (req *http.Request, client *http.Client, err error
 		r.Header["User-Agent"] = "(iPhone; CPU iPhone OS 13_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/7.0.8(0x17000820) NetType/WIFI Language/zh_CN"
 	}
 
-	if r.Method == "GET" {
-		req, err = http.NewRequest("GET", r.RequestUrl, nil)
+	if r.Method == http.MethodGet {
+		req, err = http.NewRequest(http.MethodGet, r.RequestUrl, nil)
 	} else {
 		if value, ok := r.SendData.(map[string]string); ok && len(value) > 0 && strings.ToUpper(r.Format) != "JSON" {
 			//form-data
@@ -81,12 +72,12 @@ func initRequest(r *HttpSend) (req *http.Request, client *http.Client, err error
 				for k, v := range value {
 					sendBody.Form.Add(k, v)
 				}
-				req, err = http.NewRequest("POST", r.RequestUrl, strings.NewReader(sendBody.Form.Encode()))
+				req, err = http.NewRequest(http.MethodPost, r.RequestUrl, strings.NewReader(sendBody.Form.Encode()))
 			}
 		} else if value, ok := r.SendData.([]byte); ok && len(value) > 0 && strings.ToUpper(r.Format) == "STREAM" {
 			//stream
 			r.Header["Content-Type"] = "application/octet-stream;tt-data=a"
-			req, err = http.NewRequest("POST", r.RequestUrl, bytes.NewBuffer(value))
+			req, err = http.NewRequest(http.MethodPost, r.RequestUrl, bytes.NewBuffer(value))
 		} else {
 			//json
 			r.Header["Content-Type"] = "application/json;charset=utf-8"
@@ -95,7 +86,7 @@ func initRequest(r *HttpSend) (req *http.Request, client *http.Client, err error
 				err = fmt.Errorf("json encode err: %s", jsonErr.Error())
 				return
 			}
-			req, err = http.NewRequest("POST", r.RequestUrl, bytes.NewBuffer(sendBody))
+			req, err = http.NewRequest(http.MethodPost, r.RequestUrl, bytes.NewBuffer(sendBody))
 		}
 	}
 	if err != nil {
@@ -321,7 +312,7 @@ func SimplePost(requestUrl string, params map[string]string) (string, error) {
 		Timeout:   3 * time.Second,
 		Transport: tr, //解决x509: certificate signed by unknown authority
 	}
-	req, err := http.NewRequest("POST", requestUrl, data)
+	req, err := http.NewRequest(http.MethodPost, requestUrl, data)
 	if err != nil {
 		return "http request err: " + requestUrl, err
 	}
