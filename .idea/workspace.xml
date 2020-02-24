@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d35f6ec5-e47b-48d5-bb88-75ed58297dbf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rand.go" beforeDir="false" afterPath="$PROJECT_DIR$/rand.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timeline.go" beforeDir="false" afterPath="$PROJECT_DIR$/timeline.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +39,7 @@
     <property name="configurable.Global.GOPATH.is.expanded" value="true" />
     <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../gzh" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -110,28 +110,29 @@
     <MESSAGE value="增加int64获取绝对值" />
     <MESSAGE value="增加文件大小描述" />
     <MESSAGE value="增加时间长短描述" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加时间长短描述" />
+    <MESSAGE value="增加一个随机生成订单号的方法" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加一个随机生成订单号的方法" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="4736" y="293" key="CommitChangelistDialog2" timestamp="1581993248660">
+    <state x="4736" y="293" key="CommitChangelistDialog2" timestamp="1582001126949">
       <screen x="3840" y="0" width="2560" height="1400" />
     </state>
     <state x="896" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1581916620612" />
-    <state x="4736" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1581993248660" />
+    <state x="4736" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582001126949" />
     <state x="3933" y="93" width="2375" height="1215" key="DiffContextDialog" timestamp="1577258028781">
       <screen x="3840" y="0" width="2560" height="1400" />
     </state>
     <state x="3933" y="93" width="2375" height="1215" key="DiffContextDialog/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1577258028781" />
-    <state x="1061" y="456" key="FileChooserDialogImpl" timestamp="1581992813040">
+    <state x="1061" y="456" key="FileChooserDialogImpl" timestamp="1582079629137">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1061" y="456" key="FileChooserDialogImpl/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1581992813040" />
+    <state x="1061" y="456" key="FileChooserDialogImpl/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1582079629137" />
     <state x="4901" y="456" key="FileChooserDialogImpl/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1577258186234" />
-    <state x="4713" y="434" key="Vcs.Push.Dialog.v2" timestamp="1581993250786">
+    <state x="4713" y="434" key="Vcs.Push.Dialog.v2" timestamp="1582001129844">
       <screen x="3840" y="0" width="2560" height="1400" />
     </state>
     <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1581916622770" />
-    <state x="4713" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1581993250786" />
+    <state x="4713" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582001129844" />
     <state x="4805" y="438" width="811" height="711" key="find.popup" timestamp="1581993168369">
       <screen x="3840" y="0" width="2560" height="1400" />
     </state>
