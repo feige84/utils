@@ -32,7 +32,8 @@ type HttpSend struct {
 
 type HttpResp struct {
 	Data        []byte
-	Cookies     []*http.Cookie
+	CookieObj   []*http.Cookie
+	CookieMap   map[string]string
 	RedirectURL string
 }
 
@@ -180,8 +181,15 @@ func HttpHandle(r *HttpSend) (*HttpResp, error) {
 	} else {
 		r.RequestNum = 0
 		httpResp := &HttpResp{
-			Data:    respData,
-			Cookies: resp.Cookies(),
+			Data:      respData,
+			CookieObj: resp.Cookies(),
+		}
+		cookies := make(map[string]string)
+		if len(httpResp.CookieObj) > 0 {
+			for _, c := range httpResp.CookieObj {
+				cookies[c.Name] = c.Value
+			}
+			httpResp.CookieMap = cookies
 		}
 		if resp.Request.URL != nil {
 			httpResp.RedirectURL = resp.Request.URL.String()
@@ -200,9 +208,14 @@ func (h *HttpResp) Bytes() []byte {
 	return h.Data
 }
 
-//获取返回的COOKIE
-func (h *HttpResp) Cookie() []*http.Cookie {
-	return h.Cookies
+//获取返回的COOKIE对象
+func (h *HttpResp) Cookies() []*http.Cookie {
+	return h.CookieObj
+}
+
+//获取返回的COOKIE MAP
+func (h *HttpResp) Cookie() map[string]string {
+	return h.CookieMap
 }
 
 //获取重定向地址
