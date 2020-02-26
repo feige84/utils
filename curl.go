@@ -30,6 +30,12 @@ type HttpSend struct {
 	DisableKeepAlives bool
 }
 
+type HttpResp struct {
+	Data        []byte
+	Cookies     []*http.Cookie
+	RedirectURL string
+}
+
 func initRequest(r *HttpSend) (req *http.Request, client *http.Client, err error) {
 	//判断是否是有效URL
 	urlInfo, err := url.Parse(r.RequestUrl)
@@ -137,58 +143,111 @@ func initRequest(r *HttpSend) (req *http.Request, client *http.Client, err error
 }
 
 //http请求处理
-func HttpHandle(r *HttpSend) (string, error) {
-	req, client, err := initRequest(r)
+func HttpHandle(r *HttpSend) (*HttpResp, error) {
+
+	//判断是否是有效URL
+	urlInfo, err := url.Parse(r.RequestUrl)
 	if err != nil {
-		return "", err
+		return nil, fmt.Errorf("url parse err: %s", err.Error())
 	}
-	//开始请求
-	resp, err := client.Do(req)
-	r.RequestNum++
-	if err != nil {
-		reqErr := url.Error{Err: err}
-		if reqErr.Timeout() {
-			if r.RequestNum < 2 {
-				//fmt.Println("尝试请求第", r.RequestNum, "次")
-				tryResp, tryErr := HttpHandle(r)
-				return tryResp, tryErr
-			}
-		}
-		return "", fmt.Errorf("http response err: %v", err)
-	}
-	if resp != nil {
-		defer resp.Body.Close()
-	}
-	if r.Debug {
-		fmt.Println("http response code:", resp.StatusCode)
-	}
-	if resp.StatusCode != http.StatusOK {
-		return "", fmt.Errorf("http response code: %d, %v", resp.StatusCode, err)
-	}
-	if resp.Header.Get("Content-Encoding") == "gzip" {
-		resp.Body, err = gzip.NewReader(resp.Body)
-		if err != nil {
-			return "", fmt.Errorf("http response unzip is failed: %s", err)
-		}
-	}
-	respData, err := ioutil.ReadAll(resp.Body)
-	if r.Debug {
-		fmt.Println("respData, err:", string(respData), err)
-	}
-	if err != nil {
-		return "", fmt.Errorf("http response data: %s, %v", string(respData), err)
+
+	//请求类型
+	if r.SendData == nil {
+		r.Method = http.MethodGet
 	} else {
-		r.RequestNum = 0
-		return string(respData), nil
+		r.Method = http.MethodPost
 	}
-}
 
-//获取重定向的链接
-func HttpHandleLocation(r *HttpSend) (string, error) {
-	req, client, err := initRequest(r)
-	if err != nil {
-		return "", err
+	//初始化header
+	if r.Header == nil {
+		r.Header = make(map[string]string)
 	}
+
+	//是否异步请求，很多json接口都有这类似的判断。
+	if r.XMLHttpRequest {
+		r.Header["X-Requested-With"] = "XMLHttpRequest"
+	}
+
+	//user-agent
+	if value, exist := r.Header["User-Agent"]; !exist || value == "" {
+		r.Header["User-Agent"] = "(iPhone; CPU iPhone OS 13_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/7.0.8(0x17000820) NetType/WIFI Language/zh_CN"
+	}
+
+	var (
+		req    *http.Request
+		client *http.Client
+	)
+	if r.Method == http.MethodGet {
+		req, err = http.NewRequest(http.MethodGet, r.RequestUrl, nil)
+	} else {
+		if value, ok := r.SendData.(map[string]string); ok && len(value) > 0 && strings.ToUpper(r.Format) != "JSON" {
+			//form-data
+			r.Header["Content-Type"] = "application/x-www-form-urlencoded"
+			sendBody := http.Request{}
+			err = sendBody.ParseForm()
+			if err == nil {
+				for k, v := range value {
+					sendBody.Form.Add(k, v)
+				}
+				req, err = http.NewRequest(http.MethodPost, r.RequestUrl, strings.NewReader(sendBody.Form.Encode()))
+			}
+		} else if value, ok := r.SendData.([]byte); ok && len(value) > 0 && strings.ToUpper(r.Format) == "STREAM" {
+			//stream
+			r.Header["Content-Type"] = "application/octet-stream;tt-data=a"
+			req, err = http.NewRequest(http.MethodPost, r.RequestUrl, bytes.NewBuffer(value))
+		} else {
+			//json
+			r.Header["Content-Type"] = "application/json;charset=utf-8"
+			sendBody, err := json.Marshal(r.SendData)
+			if err != nil {
+				return nil, fmt.Errorf("json encode err: %s", err.Error())
+			}
+			req, err = http.NewRequest(http.MethodPost, r.RequestUrl, bytes.NewBuffer(sendBody))
+		}
+	}
+	if err != nil {
+		return nil, fmt.Errorf("http.NewRequest ["+r.RequestUrl+"] err: %s", err.Error())
+	}
+
+	//设置header头
+	if len(r.Header) > 0 {
+		for k, v := range r.Header {
+			req.Header.Set(k, v)
+		}
+	}
+
+	//设置主机名
+	req.Host = urlInfo.Host
+
+	//忽略https的证书
+	transport := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, //解决x509: certificate signed by unknown authority
+		//Dial: TimeoutDialer(r.ConnectTimeout*time.Second, 5*time.Second), //设置超时，连接超时，读写超时。官方已不推荐用此方法。
+	}
+	//设置代理
+	// http://username:password@http-dyn.abuyun.com:9020"
+	if r.ProxyStr != "" {
+		urlProxy, err := url.Parse(r.ProxyStr)
+		if err == nil {
+			transport.Proxy = http.ProxyURL(urlProxy)
+		}
+	}
+	//是否禁用保持活动链接
+	if r.DisableKeepAlives {
+		transport.DisableKeepAlives = true
+	}
+	client = &http.Client{
+		Transport: transport,
+	}
+	if r.ConnectTimeout > 0 {
+		client.Timeout = time.Duration(r.ConnectTimeout) * time.Second
+	}
+
+	if r.Debug {
+		Pr(r)
+		Pr(req)
+	}
+
 	//开始请求
 	resp, err := client.Do(req)
 	r.RequestNum++
@@ -198,33 +257,6 @@ func HttpHandleLocation(r *HttpSend) (string, error) {
 			if r.RequestNum < 2 {
 				//fmt.Println("尝试请求第", r.RequestNum, "次")
 				tryResp, tryErr := HttpHandle(r)
-				return tryResp, tryErr
-			}
-		}
-		return "", fmt.Errorf("http response err: %v", err)
-	}
-	if resp != nil {
-		defer resp.Body.Close()
-	}
-	urlLocation := resp.Request.URL.String()
-	return urlLocation, err
-}
-
-//获取响应的cookie
-func HttpGetCookie(r *HttpSend) (map[string]string, error) {
-	req, client, err := initRequest(r)
-	if err != nil {
-		return nil, err
-	}
-	//开始请求
-	resp, err := client.Do(req)
-	r.RequestNum++
-	if err != nil {
-		reqErr := url.Error{Err: err}
-		if reqErr.Timeout() {
-			if r.RequestNum < 2 {
-				//fmt.Println("尝试请求第", r.RequestNum, "次")
-				tryResp, tryErr := HttpGetCookie(r)
 				return tryResp, tryErr
 			}
 		}
@@ -233,17 +265,55 @@ func HttpGetCookie(r *HttpSend) (map[string]string, error) {
 	if resp != nil {
 		defer resp.Body.Close()
 	}
-	cookies := make(map[string]string)
-	if resp.StatusCode != http.StatusOK {
+	if r.Debug {
+		fmt.Println("http response code:", resp.StatusCode)
+	}
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusFound {
 		return nil, fmt.Errorf("http response code: %d, %v", resp.StatusCode, err)
 	}
-	cookie := resp.Cookies()
-	if len(cookie) > 0 {
-		for _, c := range cookie {
-			cookies[c.Name] = c.Value
+	if resp.Header.Get("Content-Encoding") == "gzip" {
+		resp.Body, err = gzip.NewReader(resp.Body)
+		if err != nil {
+			return nil, fmt.Errorf("http response unzip is failed: %s", err)
 		}
 	}
-	return cookies, nil
+	respData, err := ioutil.ReadAll(resp.Body)
+	if r.Debug {
+		fmt.Println("respData, err:", string(respData), err)
+	}
+	if err != nil {
+		return nil, fmt.Errorf("http response data: %s, %v", string(respData), err)
+	} else {
+		r.RequestNum = 0
+		httpResp := &HttpResp{
+			Data:    respData,
+			Cookies: resp.Cookies(),
+		}
+		if resp.Request.URL != nil {
+			httpResp.RedirectURL = resp.Request.URL.String()
+		}
+		return httpResp, nil
+	}
+}
+
+//获取字符串内容
+func (h *HttpResp) String() string {
+	return string(h.Data)
+}
+
+//获取字节内容
+func (h *HttpResp) Bytes() []byte {
+	return h.Data
+}
+
+//获取返回的COOKIE
+func (h *HttpResp) Cookie() []*http.Cookie {
+	return h.Cookies
+}
+
+//获取重定向地址
+func (h *HttpResp) Redirect() string {
+	return h.RedirectURL
 }
 
 // TimeoutDialer returns functions of connection dialer with timeout settings for http.Transport Dial field.
