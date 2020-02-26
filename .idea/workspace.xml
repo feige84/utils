@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d35f6ec5-e47b-48d5-bb88-75ed58297dbf" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/curl_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/curl.go" beforeDir="false" afterPath="$PROJECT_DIR$/curl.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +33,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="GO_FMT" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -50,7 +51,17 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.goide.configuration.GoLibrariesConfigurableProvider" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Test.curl_test.go">
+    <configuration name="curl_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="utils" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="FILE" />
+      <package value="github.com/feige84/utils" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/curl_test.go" />
+      <method v="2" />
+    </configuration>
     <configuration name="gob_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="utils" />
       <working_directory value="$PROJECT_DIR$" />
@@ -63,6 +74,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.curl_test.go" />
         <item itemvalue="Go Test.gob_test.go" />
       </list>
     </recent_temporary>
@@ -106,19 +118,21 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="1.0" />
     <MESSAGE value="增加int64获取绝对值" />
     <MESSAGE value="增加文件大小描述" />
     <MESSAGE value="增加时间长短描述" />
     <MESSAGE value="增加一个随机生成订单号的方法" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加一个随机生成订单号的方法" />
+    <MESSAGE value="优化http请求" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化http请求" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="4736" y="293" key="CommitChangelistDialog2" timestamp="1582001126949">
+    <state x="4736" y="293" key="CommitChangelistDialog2" timestamp="1582723962419">
       <screen x="3840" y="0" width="2560" height="1400" />
     </state>
     <state x="896" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1581916620612" />
-    <state x="4736" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582001126949" />
+    <state x="4736" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582723962419" />
     <state x="3933" y="93" width="2375" height="1215" key="DiffContextDialog" timestamp="1577258028781">
       <screen x="3840" y="0" width="2560" height="1400" />
     </state>
@@ -128,11 +142,31 @@
     </state>
     <state x="1061" y="456" key="FileChooserDialogImpl/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1582079629137" />
     <state x="4901" y="456" key="FileChooserDialogImpl/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1577258186234" />
-    <state x="4713" y="434" key="Vcs.Push.Dialog.v2" timestamp="1582001129844">
+    <state width="2517" height="400" key="GridCell.Tab.0.bottom" timestamp="1582725358487">
+      <screen x="3840" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="400" key="GridCell.Tab.0.bottom/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1582725311311" />
+    <state width="2517" height="400" key="GridCell.Tab.0.bottom/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582725358487" />
+    <state width="2517" height="400" key="GridCell.Tab.0.center" timestamp="1582725358487">
+      <screen x="3840" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="400" key="GridCell.Tab.0.center/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1582725311311" />
+    <state width="2517" height="400" key="GridCell.Tab.0.center/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582725358487" />
+    <state width="2517" height="400" key="GridCell.Tab.0.left" timestamp="1582725358487">
+      <screen x="3840" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="400" key="GridCell.Tab.0.left/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1582725311310" />
+    <state width="2517" height="400" key="GridCell.Tab.0.left/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582725358487" />
+    <state width="2517" height="400" key="GridCell.Tab.0.right" timestamp="1582725358487">
+      <screen x="3840" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="400" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1582725311311" />
+    <state width="2517" height="400" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582725358487" />
+    <state x="4713" y="434" key="Vcs.Push.Dialog.v2" timestamp="1582723964855">
       <screen x="3840" y="0" width="2560" height="1400" />
     </state>
     <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1581916622770" />
-    <state x="4713" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582001129844" />
+    <state x="4713" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582723964855" />
     <state x="4805" y="438" width="811" height="711" key="find.popup" timestamp="1582723380132">
       <screen x="3840" y="0" width="2560" height="1400" />
     </state>
