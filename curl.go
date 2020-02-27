@@ -191,8 +191,13 @@ func HttpHandle(r *HttpSend) (*HttpResp, error) {
 			}
 			httpResp.CookieMap = cookies
 		}
-		if resp.Request.URL != nil {
-			httpResp.RedirectURL = resp.Request.URL.String()
+		location := resp.Header.Get("Location")
+		if location != "" {
+			httpResp.RedirectURL = location
+		} else {
+			if resp.Request != nil && resp.Request.URL != nil {
+				httpResp.RedirectURL = resp.Request.URL.String()
+			}
 		}
 		return httpResp, nil
 	}
