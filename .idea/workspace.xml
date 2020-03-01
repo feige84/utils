@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d35f6ec5-e47b-48d5-bb88-75ed58297dbf" name="Default Changelist" comment="增加正在匹配">
+    <list default="true" id="d35f6ec5-e47b-48d5-bb88-75ed58297dbf" name="Default Changelist" comment="增加跳转URL的检查">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/curl.go" beforeDir="false" afterPath="$PROJECT_DIR$/curl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/check.go" beforeDir="false" afterPath="$PROJECT_DIR$/check.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,18 +125,19 @@
     <MESSAGE value="增加时间长短描述" />
     <MESSAGE value="增加一个随机生成订单号的方法" />
     <MESSAGE value="优化http请求" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化http请求" />
+    <MESSAGE value="增加跳转URL的检查" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加跳转URL的检查" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="4736" y="293" key="CommitChangelistDialog2" timestamp="1582782554538">
-      <screen x="3840" y="0" width="2560" height="1400" />
-    </state>
-    <state x="896" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1581916620612" />
-    <state x="4736" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582782554538" />
-    <state x="93" y="93" width="2375" height="1215" key="DiffContextDialog" timestamp="1582727736965">
+    <state x="896" y="293" key="CommitChangelistDialog2" timestamp="1582886957828">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="93" y="93" width="2375" height="1215" key="DiffContextDialog/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1582727736965" />
+    <state x="896" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1582886957828" />
+    <state x="4736" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582782554538" />
+    <state x="93" y="93" width="2375" height="1215" key="DiffContextDialog" timestamp="1582806008094">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="93" y="93" width="2375" height="1215" key="DiffContextDialog/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1582806008094" />
     <state x="3933" y="93" width="2375" height="1215" key="DiffContextDialog/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1577258028781" />
     <state x="1061" y="456" key="FileChooserDialogImpl" timestamp="1582079629137">
       <screen x="0" y="0" width="2560" height="1400" />
@@ -163,14 +164,14 @@
     </state>
     <state width="2517" height="400" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1582725311311" />
     <state width="2517" height="400" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582725425512" />
-    <state x="4713" y="434" key="Vcs.Push.Dialog.v2" timestamp="1582725417410">
-      <screen x="3840" y="0" width="2560" height="1400" />
+    <state x="873" y="434" key="Vcs.Push.Dialog.v2" timestamp="1582806026570">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1581916622770" />
+    <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1582806026570" />
     <state x="4713" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582725417410" />
-    <state x="4805" y="438" width="811" height="711" key="find.popup" timestamp="1582723380132">
+    <state x="4805" y="438" width="811" height="711" key="find.popup" timestamp="1582885932653">
       <screen x="3840" y="0" width="2560" height="1400" />
     </state>
-    <state x="4805" y="438" width="811" height="711" key="find.popup/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582723380132" />
+    <state x="4805" y="438" width="811" height="711" key="find.popup/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582885932653" />
   </component>
 </project>

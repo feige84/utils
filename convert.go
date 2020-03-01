@@ -274,3 +274,26 @@ func Min(nums ...float64) float64 {
 	}
 	return min
 }
+
+// 单位转换： 万 -- 101.3W ,小于一万 返回 原数string
+func NumberFormatUnit(num int64, unit string) string {
+	numStr := fmt.Sprint(num)
+	//开始计算
+	numAbs := Int64Abs(num) //用绝对值计算
+	if numAbs > 10000 {
+		number := float64(numAbs) / 10000
+		number, _ = strconv.ParseFloat(fmt.Sprintf("%.1f", number), 64)
+		if number >= 1 {
+			numStr = strconv.FormatFloat(number, 'f', -1, 32)
+			if unit != "" { //单位
+				numStr += unit
+			}
+		}
+	}
+	//如果原数字小于0，加个负号
+	if num < 0 {
+		numStr = fmt.Sprint("-", numStr)
+	}
+	//return fmt.Sprint(num)
+	return numStr
+}
