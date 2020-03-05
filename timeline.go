@@ -327,26 +327,8 @@ func StrToTime(dateText, timeLayout string) (timestamp int64) {
 }
 
 /*
-func YmdToTime(dateText string) (timestamp int64) {
-	if dateText == "" {
-		return 0
-	}
-	//时间模板用 2006-01-02 15:04:05 ，据说是golang的诞生时间。
-	var timeFormat string
-	if timeLayout == "date" {
-		timeFormat = "2006-01-02"
-	} else if timeLayout == "datetime" {
-		timeFormat = "2006-01-02 15:04:05"
-	} else {
-		timeFormat = timeLayout
-	}
-	theTime, err := time.ParseInLocation(timeFormat, dateText, TimeLocal) //使用模板在对应时区转化为time.time类型
-	if err != nil {
-		panic(err.Error())
-	}
-	timestamp = theTime.Unix() //转化为时间戳 类型是int64
-	return
-}
+兼容常用时间格式正则
+[0-9]{4,}(-|/)[0-9]{1,}(-|/)[0-9]{1,}( |)[0-9]{1,}(:[0-9]{1,}(:[0-9]{1,}|)|)
 */
 //传毫秒
 func GetDurationDesc(duration int64) string {

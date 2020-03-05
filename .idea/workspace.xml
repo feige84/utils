@@ -127,13 +127,14 @@
     <MESSAGE value="优化http请求" />
     <MESSAGE value="增加跳转URL的检查" />
     <MESSAGE value="增加数字单位转换" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加数字单位转换" />
+    <MESSAGE value="时间转换" />
+    <option name="LAST_COMMIT_MESSAGE" value="时间转换" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="896" y="293" key="CommitChangelistDialog2" timestamp="1583058893621">
+    <state x="896" y="293" key="CommitChangelistDialog2" timestamp="1583411036201">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="896" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1583058893621" />
+    <state x="896" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1583411036201" />
     <state x="4736" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582782554538" />
     <state x="93" y="93" width="2375" height="1215" key="DiffContextDialog" timestamp="1582806008094">
       <screen x="0" y="0" width="2560" height="1400" />
@@ -165,10 +166,10 @@
     </state>
     <state width="2517" height="400" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1582725311311" />
     <state width="2517" height="400" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582725425512" />
-    <state x="873" y="434" key="Vcs.Push.Dialog.v2" timestamp="1583058896417">
+    <state x="873" y="434" key="Vcs.Push.Dialog.v2" timestamp="1583410658948">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1583058896417" />
+    <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1583410658948" />
     <state x="4713" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582725417410" />
     <state x="965" y="438" width="811" height="711" key="find.popup" timestamp="1583410507648">
       <screen x="0" y="0" width="2560" height="1400" />
