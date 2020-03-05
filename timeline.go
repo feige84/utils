@@ -218,9 +218,9 @@ func TimeFormat(format string, timestamp ...int64) string {
 	return t.Format(format)
 }
 
-func StrToLocalTime(value string) time.Time {
+func StrToLocalTimeBak(value string) time.Time {
 	if value == "" {
-		return time.Time{}
+		return GetNow()
 	}
 	zoneName, offset := time.Now().Zone()
 
@@ -234,12 +234,13 @@ func StrToLocalTime(value string) time.Time {
 	if zoneName != "" {
 		value += " " + zoneName
 	}
-	return strToTime(value)
+	return StrToLocalTime(value)
 }
 
-func strToTime(value string) time.Time {
+func StrToLocalTime(value string) time.Time {
+	var t = GetNow()
 	if value == "" {
-		return time.Time{}
+		return t
 	}
 	layouts := []string{
 		"2006-01-02 15:04:05 -0700 MST",
@@ -258,6 +259,11 @@ func strToTime(value string) time.Time {
 		"2006/01/02 15:04:05 -0700 -0700",
 		"2006-01-02 -0700 -0700",
 		"2006/01/02 -0700 -0700",
+		"2006-01-02T15:04:05.000",
+		"2006-1-2T15:4:5.000",
+		"2006-1-2T15:04:05.000",
+		"2006-01-02T15:04",
+		"2006-01-02 15:04:05 Mon",
 		time.ANSIC,
 		time.UnixDate,
 		time.RubyDate,
@@ -275,7 +281,6 @@ func strToTime(value string) time.Time {
 		time.StampNano,
 	}
 
-	var t time.Time
 	var err error
 	for _, layout := range layouts {
 		t, err = time.ParseInLocation(layout, value, TimeLocal)
@@ -283,7 +288,7 @@ func strToTime(value string) time.Time {
 			return t
 		}
 	}
-	return GetNow()
+	return t
 }
 
 func GetDate(timestamp int64) string {
@@ -328,7 +333,7 @@ func StrToTime(dateText, timeLayout string) (timestamp int64) {
 
 /*
 兼容常用时间格式正则
-[0-9]{4,}(-|/)[0-9]{1,}(-|/)[0-9]{1,}( |)[0-9]{1,}(:[0-9]{1,}(:[0-9]{1,}|)|)
+[0-9]{4,}(-|/)[0-9]{1,}(-|/)[0-9]{1,}( ||T)[0-9]{1,}(:[0-9]{1,}(:[0-9]{1,}|)|)
 */
 //传毫秒
 func GetDurationDesc(duration int64) string {
