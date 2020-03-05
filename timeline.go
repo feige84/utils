@@ -278,12 +278,12 @@ func strToTime(value string) time.Time {
 	var t time.Time
 	var err error
 	for _, layout := range layouts {
-		t, err = time.Parse(layout, value)
+		t, err = time.ParseInLocation(layout, value, TimeLocal)
 		if err == nil {
 			return t
 		}
 	}
-	panic(err.Error())
+	return GetNow()
 }
 
 func GetDate(timestamp int64) string {
@@ -318,11 +318,7 @@ func StrToTime(dateText, timeLayout string) (timestamp int64) {
 	} else {
 		timeFormat = timeLayout
 	}
-	loc, err := time.LoadLocation("Local")
-	if err != nil {
-		panic(err.Error())
-	} //重要：获取时区
-	theTime, err := time.ParseInLocation(timeFormat, dateText, loc) //使用模板在对应时区转化为time.time类型
+	theTime, err := time.ParseInLocation(timeFormat, dateText, TimeLocal) //使用模板在对应时区转化为time.time类型
 	if err != nil {
 		panic(err.Error())
 	}
@@ -330,6 +326,28 @@ func StrToTime(dateText, timeLayout string) (timestamp int64) {
 	return
 }
 
+/*
+func YmdToTime(dateText string) (timestamp int64) {
+	if dateText == "" {
+		return 0
+	}
+	//时间模板用 2006-01-02 15:04:05 ，据说是golang的诞生时间。
+	var timeFormat string
+	if timeLayout == "date" {
+		timeFormat = "2006-01-02"
+	} else if timeLayout == "datetime" {
+		timeFormat = "2006-01-02 15:04:05"
+	} else {
+		timeFormat = timeLayout
+	}
+	theTime, err := time.ParseInLocation(timeFormat, dateText, TimeLocal) //使用模板在对应时区转化为time.time类型
+	if err != nil {
+		panic(err.Error())
+	}
+	timestamp = theTime.Unix() //转化为时间戳 类型是int64
+	return
+}
+*/
 //传毫秒
 func GetDurationDesc(duration int64) string {
 	var day, hour, minute int
