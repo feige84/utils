@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d35f6ec5-e47b-48d5-bb88-75ed58297dbf" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/location.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/location_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gob_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/gob_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +53,7 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.goide.configuration.GoLibrariesConfigurableProvider" />
   </component>
-  <component name="RunManager" selected="Go Test.curl_test.go">
+  <component name="RunManager" selected="Go Test.location_test.go (1)">
     <configuration name="curl_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="utils" />
       <working_directory value="$PROJECT_DIR$" />
@@ -59,6 +62,16 @@
       <package value="github.com/feige84/utils" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/curl_test.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="gob_test.go (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="utils" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="FILE" />
+      <package value="github.com/feige84/utils" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/gob_test.go" />
       <method v="2" />
     </configuration>
     <configuration name="gob_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -71,8 +84,31 @@
       <filePath value="$PROJECT_DIR$/gob_test.go" />
       <method v="2" />
     </configuration>
+    <configuration name="location_test.go (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="utils" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="FILE" />
+      <package value="github.com/feige84/utils" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/location_test.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="location_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="utils" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="FILE" />
+      <package value="github.com/feige84/utils" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/location_test.go" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.location_test.go (1)" />
+        <item itemvalue="Go Test.gob_test.go (1)" />
+        <item itemvalue="Go Test.location_test.go" />
         <item itemvalue="Go Test.curl_test.go" />
         <item itemvalue="Go Test.gob_test.go" />
       </list>
@@ -127,53 +163,54 @@
     <MESSAGE value="增加跳转URL的检查" />
     <MESSAGE value="增加数字单位转换" />
     <MESSAGE value="时间转换" />
-    <option name="LAST_COMMIT_MESSAGE" value="时间转换" />
+    <MESSAGE value="月后" />
+    <option name="LAST_COMMIT_MESSAGE" value="月后" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="896" y="293" key="CommitChangelistDialog2" timestamp="1583412901223">
+    <state x="896" y="293" key="CommitChangelistDialog2" timestamp="1584363186255">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="896" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1583412901223" />
+    <state x="896" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1584363186255" />
     <state x="4736" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582782554538" />
     <state x="93" y="93" width="2375" height="1215" key="DiffContextDialog" timestamp="1582806008094">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="93" y="93" width="2375" height="1215" key="DiffContextDialog/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1582806008094" />
     <state x="3933" y="93" width="2375" height="1215" key="DiffContextDialog/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1577258028781" />
-    <state x="1061" y="456" key="FileChooserDialogImpl" timestamp="1583752259272">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state x="4901" y="456" key="FileChooserDialogImpl" timestamp="1584365845012">
+      <screen x="3840" y="0" width="2560" height="1400" />
     </state>
     <state x="1061" y="456" key="FileChooserDialogImpl/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1583752259272" />
-    <state x="4901" y="456" key="FileChooserDialogImpl/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1577258186234" />
-    <state width="2517" height="400" key="GridCell.Tab.0.bottom" timestamp="1582725425512">
+    <state x="4901" y="456" key="FileChooserDialogImpl/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1584365845012" />
+    <state width="2531" height="404" key="GridCell.Tab.0.bottom" timestamp="1584366675685">
       <screen x="3840" y="0" width="2560" height="1400" />
     </state>
     <state width="2517" height="400" key="GridCell.Tab.0.bottom/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1582725311311" />
-    <state width="2517" height="400" key="GridCell.Tab.0.bottom/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582725425512" />
-    <state width="2517" height="400" key="GridCell.Tab.0.center" timestamp="1582725425512">
+    <state width="2531" height="404" key="GridCell.Tab.0.bottom/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1584366675685" />
+    <state width="2531" height="404" key="GridCell.Tab.0.center" timestamp="1584366675685">
       <screen x="3840" y="0" width="2560" height="1400" />
     </state>
     <state width="2517" height="400" key="GridCell.Tab.0.center/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1582725311311" />
-    <state width="2517" height="400" key="GridCell.Tab.0.center/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582725425512" />
-    <state width="2517" height="400" key="GridCell.Tab.0.left" timestamp="1582725425512">
+    <state width="2531" height="404" key="GridCell.Tab.0.center/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1584366675685" />
+    <state width="2531" height="404" key="GridCell.Tab.0.left" timestamp="1584366675685">
       <screen x="3840" y="0" width="2560" height="1400" />
     </state>
     <state width="2517" height="400" key="GridCell.Tab.0.left/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1582725311310" />
-    <state width="2517" height="400" key="GridCell.Tab.0.left/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582725425512" />
-    <state width="2517" height="400" key="GridCell.Tab.0.right" timestamp="1582725425512">
+    <state width="2531" height="404" key="GridCell.Tab.0.left/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1584366675685" />
+    <state width="2531" height="404" key="GridCell.Tab.0.right" timestamp="1584366675685">
       <screen x="3840" y="0" width="2560" height="1400" />
     </state>
     <state width="2517" height="400" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1582725311311" />
-    <state width="2517" height="400" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582725425512" />
-    <state x="873" y="434" key="Vcs.Push.Dialog.v2" timestamp="1583412903537">
+    <state width="2531" height="404" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1584366675685" />
+    <state x="873" y="434" key="Vcs.Push.Dialog.v2" timestamp="1584363188402">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1583412903537" />
+    <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1584363188402" />
     <state x="4713" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582725417410" />
-    <state x="965" y="438" width="811" height="711" key="find.popup" timestamp="1584363139723">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state x="4805" y="438" width="811" height="711" key="find.popup" timestamp="1584366339582">
+      <screen x="3840" y="0" width="2560" height="1400" />
     </state>
     <state x="965" y="438" width="811" height="711" key="find.popup/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1584363139723" />
-    <state x="4805" y="438" width="811" height="711" key="find.popup/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582885932653" />
+    <state x="4805" y="438" width="811" height="711" key="find.popup/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1584366339582" />
   </component>
 </project>
