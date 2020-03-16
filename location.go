@@ -9,11 +9,6 @@ const (
 //$ad = Db::connect('databasetwo')->query("SELECT *,(2 * 6378.137 * ASIN(	SQRT(POW( SIN( PI( ) * ( " . 用户$longitude . "- 查询表.longitude ) / 360 ), 2 ) + COS( PI( ) * " . 用户$latitude . " / 180 ) * COS(  查询表.latitude * PI( ) / 180 ) * POW( SIN( PI( ) * ( " . 用户$latitude . "- 查询表.latitude ) / 360 ), 2 )))) AS distance FROM `查询表` ORDER BY	distance ASC LIMIT 1");
 //使用此函数计算得到结果后，带入sql查询。
 
-//currentLat 当前纬度
-//currentLng 当前经度
-//destLat 目的地纬度
-//destLng 目的地经度
-
 type Coordinate struct {
 	Longitude float64 //经度
 	Latitude  float64 //纬度
@@ -49,7 +44,15 @@ func SquarePoint(lat, lng, distance float64) (leftTop, rightTop, leftBottom, rig
 	return
 }
 
-// 返回值的单位为米
+/**
+*计算两个坐标点之间的距离
+*
+*@param currentLat float 当前纬度
+*@param currentLng float 当前经度
+*@param destLat float 目的地纬度
+*@param destLat destLng 目的地经度
+*@return array 距离，单位：米
+ */
 func EarthDistance(currentLat, currentLng, destLat, destLng float64) float64 {
 	rad := math.Pi / 180.0
 	currentLat = currentLat * rad
