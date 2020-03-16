@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d35f6ec5-e47b-48d5-bb88-75ed58297dbf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/timeline.go" beforeDir="false" afterPath="$PROJECT_DIR$/timeline.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,20 +130,20 @@
     <option name="LAST_COMMIT_MESSAGE" value="时间转换" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="896" y="293" key="CommitChangelistDialog2" timestamp="1583411036201">
+    <state x="896" y="293" key="CommitChangelistDialog2" timestamp="1583412901223">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="896" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1583411036201" />
+    <state x="896" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1583412901223" />
     <state x="4736" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582782554538" />
     <state x="93" y="93" width="2375" height="1215" key="DiffContextDialog" timestamp="1582806008094">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="93" y="93" width="2375" height="1215" key="DiffContextDialog/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1582806008094" />
     <state x="3933" y="93" width="2375" height="1215" key="DiffContextDialog/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1577258028781" />
-    <state x="1061" y="456" key="FileChooserDialogImpl" timestamp="1582079629137">
+    <state x="1061" y="456" key="FileChooserDialogImpl" timestamp="1583752259272">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1061" y="456" key="FileChooserDialogImpl/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1582079629137" />
+    <state x="1061" y="456" key="FileChooserDialogImpl/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1583752259272" />
     <state x="4901" y="456" key="FileChooserDialogImpl/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1577258186234" />
     <state width="2517" height="400" key="GridCell.Tab.0.bottom" timestamp="1582725425512">
       <screen x="3840" y="0" width="2560" height="1400" />
@@ -166,15 +165,15 @@
     </state>
     <state width="2517" height="400" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1582725311311" />
     <state width="2517" height="400" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582725425512" />
-    <state x="873" y="434" key="Vcs.Push.Dialog.v2" timestamp="1583411040455">
+    <state x="873" y="434" key="Vcs.Push.Dialog.v2" timestamp="1583412903537">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1583411040455" />
+    <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1583412903537" />
     <state x="4713" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582725417410" />
-    <state x="965" y="438" width="811" height="711" key="find.popup" timestamp="1583410507648">
+    <state x="965" y="438" width="811" height="711" key="find.popup" timestamp="1584363139723">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="965" y="438" width="811" height="711" key="find.popup/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1583410507648" />
+    <state x="965" y="438" width="811" height="711" key="find.popup/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1584363139723" />
     <state x="4805" y="438" width="811" height="711" key="find.popup/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1582885932653" />
   </component>
 </project>

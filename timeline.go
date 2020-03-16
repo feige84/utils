@@ -392,3 +392,20 @@ func DaysOfMonth(year, month int) (days int) {
 	}
 	return
 }
+
+func GetMonthLater(timestamp int64, months int) int64 {
+	if months < 0 {
+		return 0
+	}
+	var year, day int
+	var month time.Month
+	if timestamp > 0 {
+		year, month, day = time.Unix(timestamp, 0).Date()
+	} else {
+		year, month, day = GetNow().Date()
+	}
+	thisMonth := time.Date(year, month, day, 0, 0, 0, 0, TimeLocal)
+	nextMonth := thisMonth.AddDate(0, +months, 0)
+	endTime := nextMonth.Unix() + 86399
+	return endTime
+}
