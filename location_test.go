@@ -12,4 +12,10 @@ func TestLoc(t *testing.T) {
 	destLat := 24.330819
 	destLng := 109.451471
 	fmt.Println(EarthDistance(currentLat, currentLng, destLat, destLng))
+
+	leftTop, rightTop, leftBottom, rightBottom := SquarePoint(currentLat, currentLng, 5000)
+	Pr(leftTop)
+	Pr(rightTop)
+	Pr(leftBottom)
+	Pr(rightBottom)
 }
