@@ -7,7 +7,11 @@ import (
 	"time"
 )
 
-var TimeLocal, _ = time.LoadLocation("Asia/Shanghai")
+var (
+	TimeLocal, _          = time.LoadLocation("Asia/Shanghai")
+	DefaultDatetimeFormat = "2006-01-02 15:04:05"
+	DefaultDateFormat     = "2006-01-02"
+)
 
 func GetNow() time.Time {
 	return time.Now().In(TimeLocal)
