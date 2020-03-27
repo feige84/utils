@@ -8,9 +8,10 @@ import (
 )
 
 var (
-	TimeLocal, _          = time.LoadLocation("Asia/Shanghai")
-	DefaultDatetimeFormat = "2006-01-02 15:04:05"
-	DefaultDateFormat     = "2006-01-02"
+	TimeLocal, _        = time.LoadLocation("Asia/Shanghai")
+	DefaultYmdHisFormat = "2006-01-02 15:04:05"
+	DefaultYmdHiFormat  = "2006-01-02 15:04"
+	DefaultYmdFormat    = "2006-01-02"
 )
 
 func GetNow() time.Time {

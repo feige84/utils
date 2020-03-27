@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d35f6ec5-e47b-48d5-bb88-75ed58297dbf" name="Default Changelist" comment="">
+    <list default="true" id="d35f6ec5-e47b-48d5-bb88-75ed58297dbf" name="Default Changelist" comment="增加默认时间格式全局变量">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/timeline.go" beforeDir="false" afterPath="$PROJECT_DIR$/timeline.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,13 +162,14 @@
     <MESSAGE value="时间转换" />
     <MESSAGE value="月后" />
     <MESSAGE value="增加计算两点坐标距离。单位米。" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加计算两点坐标距离。单位米。" />
+    <MESSAGE value="增加默认时间格式全局变量" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加默认时间格式全局变量" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="4736" y="293" key="CommitChangelistDialog2" timestamp="1584371762406">
-      <screen x="3840" y="0" width="2560" height="1400" />
+    <state x="896" y="293" key="CommitChangelistDialog2" timestamp="1585016557857">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="896" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1584363186255" />
+    <state x="896" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1585016557857" />
     <state x="4736" y="293" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1584371762406" />
     <state x="93" y="93" width="2375" height="1215" key="DiffContextDialog" timestamp="1582806008094">
       <screen x="0" y="0" width="2560" height="1400" />
@@ -201,15 +201,15 @@
     </state>
     <state width="2517" height="400" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1582725311311" />
     <state width="2517" height="399" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1584371693924" />
-    <state x="4713" y="434" key="Vcs.Push.Dialog.v2" timestamp="1584371608337">
-      <screen x="3840" y="0" width="2560" height="1400" />
-    </state>
-    <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1584363188402" />
-    <state x="4713" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1584371608337" />
-    <state x="965" y="438" width="811" height="711" key="find.popup" timestamp="1585016498926">
+    <state x="873" y="434" key="Vcs.Push.Dialog.v2" timestamp="1585016538383">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="965" y="438" width="811" height="711" key="find.popup/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1585016498926" />
+    <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1585016538383" />
+    <state x="4713" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1584371608337" />
+    <state x="965" y="438" width="811" height="711" key="find.popup" timestamp="1585292391602">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="965" y="438" width="811" height="711" key="find.popup/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1585292391602" />
     <state x="4805" y="438" width="811" height="711" key="find.popup/0.0.2560.1400/3840.0.2560.1400@3840.0.2560.1400" timestamp="1584366339582" />
   </component>
 </project>
